@@ -1,0 +1,58 @@
+﻿<!-- This file contains job definitions in schema version 2.0 format -->
+<job-scheduling-data version="2.0" xmlns="http://quartznet.sourceforge.net/JobSchedulingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+  </processing-directives>
+  <schedule>
+    <job>
+      <!--作业名称，同一个 group 中作业名称不能相同-->
+      <name>HelthCheckJob</name>
+      <!--作业分组名称，表示该作业所属分组-->
+      <group>jGP_HelthCheckJob</group>
+      <!--描述-->
+      <description>检测Job存活状态</description>
+      <!--指定作业将调用的作业实现类，格式为：命名空间.类名,程序集名称-->
+      <job-type>AOTWebApi.QuartzJobs.HelthCheckJob, AOTWebApi</job-type>
+      <!--任务完成后是否依然保存到数据库，默认为false-->
+      <durable>true</durable>
+      <!--应用或服务重启之后是否忽略过期任务，默认为false-->
+      <recover>false</recover>
+      <!--传递给IJobExecutionContext 上下文数据-->
+      <job-data-map>
+        <entry>
+          <key>taskName</key>
+          <value>HelthCheckJob</value>
+        </entry>
+        <entry>
+          <key>taskNameCN</key>
+          <value>检测Job存活状态</value>
+        </entry>
+      </job-data-map>
+    </job>
+    <trigger>
+      <!--复杂触发器，使用 cron-expression 设置触发器的行为 cron生成器：https://cron.qqe2.com/ -->
+      <cron>
+        <!--触发器名称，同一个 group 中作业名称不能相同-->
+        <name>Tr_HelthCheckJob</name>
+        <!--触发器分组名称，表示该触发器所属分组-->
+        <group>GP_HelthCheckJob</group>
+        <!--作业名，触发哪个作业，必须与 job 节点中的 group 相同-->
+        <job-name>HelthCheckJob</job-name>
+        <!--要调度的作业分组名称，必须与 job 节点中的 group 相同-->
+        <job-group>jGP_HelthCheckJob</job-group>
+        <!--开始作业的 utc 时间，北京时间需要+08:00，例如：<start-time>2017-12-01T08:00:00+08:00</start-time>，表示北京时间2017年12月1日上午8:00开始执行。
+          注意：服务启动或重启时都会检测此属性。若没有设置此属性，服务会根据 cron-expression 的规则执行作业调度；
+          若 start-time 的时间小于当前时间，服务启动后会忽略 cron-expression 的设置，立即执行一次调度，之后再根据 cron-expression 执行作业调度；
+          若大于当前时间，服务会等到当前时间等于 start-time 的时间才开始执行，并根据 cron-expression 执行作业调度。
+          如果没有特殊要求，可以忽略该属性。-->
+        <!--<start-time>2021-12-01T00:00:00+08:00</start-time>-->
+        <!--错过了触发 必须在 cron-expression 节点前
+          DoNothing：不触发立即执行。等待下次Cron触发频率到达时刻开始按照Cron频率依次执行。即如果错过了某次执行，直接忽略。
+          FireOnceNow：以当前时间为触发频率立刻触发一次执行，然后按照Cron频率依次执行。-->
+        <misfire-instruction>SmartPolicy</misfire-instruction>
+        <!--每1分钟执行一次-->
+        <cron-expression>0 0/1 * * * ?</cron-expression>
+      </cron>
+    </trigger>
+  </schedule>
+</job-scheduling-data>
