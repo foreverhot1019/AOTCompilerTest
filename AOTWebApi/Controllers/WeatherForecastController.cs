@@ -33,23 +33,48 @@ namespace AOTWebApi.Controllers
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            }).ToArray();
+        }
+
+        [Route("GetWF")]
+        [HttpGet]
+        public WeatherForecast GetWF()
+        {
+            _logger.LogInformation("Get-----WeatherForecastController----------------");
+            return new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(Random.Shared.Next(1,10))),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            };
+        }
+
+        [Route("GetWFTask")]
+        [HttpGet]
+        public async Task<WeatherForecast> GetWFTask()
+        {
+            _logger.LogInformation("Get-----WeatherForecastController----------------");
+            return new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(Random.Shared.Next(1, 10))),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            };
         }
 
         [HttpPost]
-        public async Task<IEnumerable<WeatherForecast>> Post()
+        public async Task<List<WeatherForecast>> Post()
         {
             var arr = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            }).ToList();
             //return await Task.FromResult(arr);
             return arr;
         }
+
     }
 
     /// <summary>
@@ -57,14 +82,14 @@ namespace AOTWebApi.Controllers
     /// AOT发布不是预期的 WeatherForecastp[]
     /// 而是 result
     /// </summary>
-    [JsonSerializable(typeof(IEnumerable<WeatherForecast>))]
-    [JsonSerializable(typeof(DateOnly))] 
-    [JsonSerializable(typeof(int))]
-    [JsonSerializable(typeof(string))]
+    [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+    [JsonSerializable(typeof(WeatherForecast[]), GenerationMode = JsonSourceGenerationMode.Metadata)]
+    [JsonSerializable(typeof(List<WeatherForecast>), GenerationMode = JsonSourceGenerationMode.Metadata)]
+    [JsonSerializable(typeof(WeatherForecast), GenerationMode = JsonSourceGenerationMode.Metadata)]
+    [JsonSerializable(typeof(System.Object))] 
     [JsonSerializable(typeof(System.DayOfWeek))]
-    [JsonSerializable(typeof(System.Object))]
     internal partial class WeatherForecastJsonContext : JsonSerializerContext
     {
-        public JsonTypeInfo<IEnumerable<WeatherForecast>> WeatherForecasts { get; }
+        //public JsonTypeInfo<IEnumerable<WeatherForecast>> WeatherForecasts { get; }
     }
 }
