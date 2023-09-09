@@ -1,64 +1,85 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
-  <Application>
-    <Assembly Name="System.Private.CoreLib" />
-    <!--Serilog 程序集-->
-    <Assembly Name="Serilog.Sinks.Console"  Dynamic="Required All" />
-    <Assembly Name="Serilog.Sinks.File"  Dynamic="Required All" />
-    <Assembly Name="System.Text.Json" >
-      <!--for Swagger UI-->
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[Swashbuckle.AspNetCore.SwaggerUI.UrlDescriptor,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[Swashbuckle.AspNetCore.SwaggerUI.ModelRendering,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[Swashbuckle.AspNetCore.SwaggerUI.DocExpansion,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Nullable`1[[System.Int32,System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Int32,System.Private.CoreLib]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Converters.NullableConverter`1[[System.Int32,System.Private.CoreLib]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Converters.IEnumerableOfTConverter`2[[System.Collections.Generic.IEnumerable`1[[Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod,Swashbuckle.AspNetCore.SwaggerUI]],System.Private.CoreLib],[Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Converters.EnumConverter`1[[Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Converters.EnumConverter`1[[Swashbuckle.AspNetCore.SwaggerUI.UrlDescriptor,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Converters.EnumConverter`1[[Swashbuckle.AspNetCore.SwaggerUI.ModelRendering,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Converters.EnumConverter`1[[Swashbuckle.AspNetCore.SwaggerUI.DocExpansion,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
-      
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Nullable`1[[System.Object,System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Object,System.Private.CoreLib]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Converters.NullableConverter`1[[System.Object,System.Private.CoreLib]]" Dynamic="Required All" />
-      
-      <Type Name="System.Text.Json.Serialization.JsonConverter`1[[System.Threading.Tasks.Task`1[[System.Collections.Generic.IEnumerable`1[[AOTWebApi.WeatherForecast,AOTWebApi]],System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Threading.Tasks.Task`1[[System.Collections.Generic.IEnumerable`1[[AOTWebApi.WeatherForecast,AOTWebApi]],System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Collections.Generic.IEnumerable`1[[AOTWebApi.WeatherForecast,AOTWebApi]],System.Private.CoreLib]]" Dynamic="Required All" />
-      <!-- for serialization of WeatherForecast -->
-      <!--<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Threading.Tasks.Task[System.Collections.Generic.IEnumerable`1[[AOTWebApi.WeatherForecast,AOTWebApi],System.Private.CoreLib],System.Private.CoreLib]]" Dynamic="Required All" />-->
-      <!--<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[AOTWebApi.WeatherForecast,AOTWebApi],[System.Int32,System.Private.CoreLib],[System.Int32,System.Private.CoreLib],[System.Int32,System.Private.CoreLib]]" Dynamic="Required All" />-->
-      <!-- for serialization of WeatherForecastWithNullable -->
-      <!--<Type Name="System.Text.Json.JsonPropertyInfoNotNullable`4[[AOTWebApi.WeatherForecastWithNullable,AOTWebApi],[System.DateTimeOffset,System.Private.CoreLib],[System.DateTimeOffset,System.Private.CoreLib],[System.DateTimeOffset,System.Private.CoreLib]]" Dynamic="Required All" />
-      <Type Name="System.Text.Json.JsonPropertyInfoNullable`2[[AOTWebApi.WeatherForecastWithNullable,AOTWebApi],[System.Int32,System.Private.CoreLib]]" Dynamic="Required All" />-->
-    </Assembly>
-    <!--Linq 反射 .Net 基类（元数据等类型）-->
-    <Assembly Name="System.Linq" Dynamic="Required All">
-      <Type Name="System.Linq.Enumerable" Dynamic="Required All">
-        <Method Name="ToArray" Dynamic="Required">
-          <GenericArgument Name="System.Object, System.Private.CoreLib" />
-        </Method>
-      </Type>
-    </Assembly>
-    <!--XML 反射 MakeGenericMethod--> 
-    <Assembly Name="System.Private.Xml">
-      <!-- EETypeRva:0x01D8EE30(System.Reflection.MissingRuntimeArtifactException): MakeGenericMethod() cannot create this generic method instantiation because the instantiation was not metadata-enabled:
+	<Application>
+		<Assembly Name="System.Private.CoreLib" />
+		<!--Serilog 程序集-->
+		<Assembly Name="Serilog.Sinks.Console"  Dynamic="Required All" />
+		<Assembly Name="Serilog.Sinks.File"  Dynamic="Required All" />
+		<!--SqlClient-->
+		<!--<Assembly Name="System.Data.SqlClient">
+			<Type Name="System.Data.SqlClient.SqlCommandBuilder" Dynamic="Required All" />
+			<Type Name="System.Data.SqlClient.SqlBulkCopy" Dynamic="Required All" />
+			<Type Name="System.Data.SqlClient.SqlConnection" Dynamic="Required All" />
+			<Type Name="System.Data.SqlClient.SqlBulkCopyOptions" Dynamic="Required All" />
+			<Type Name="System.Data.SqlClient.SqlBulkCopyOptions[]" Dynamic="Required All" />
+		</Assembly>-->
+		<!--ConfigurationManager-->
+		<Assembly Name="System.Configuration.ConfigurationManager">
+			<Type Name="System.Configuration.ClientConfigurationHost" Dynamic="Required All" />
+			<Type Name="System.Configuration.AppSettingsSection" Dynamic="Required All" />
+		</Assembly>
+
+		<Assembly Name="Microsoft.EntityFrameworkCore">
+			<Type Name="Microsoft.EntityFrameworkCore.Internal.DbSetInitializer" Dynamic="Required All" />
+		</Assembly>
+		<Assembly Name="System.Runtime">
+			<Type Name="System.GC" Dynamic="Required All" />
+			<Type Name="System.Enum" Dynamic="Required All" />
+		</Assembly>
+		<Assembly Name="System.Text.Json" >
+			<!--for Swagger UI-->
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[Swashbuckle.AspNetCore.SwaggerUI.UrlDescriptor,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[Swashbuckle.AspNetCore.SwaggerUI.ModelRendering,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[Swashbuckle.AspNetCore.SwaggerUI.DocExpansion,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Nullable`1[[System.Int32,System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Int32,System.Private.CoreLib]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Converters.NullableConverter`1[[System.Int32,System.Private.CoreLib]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Converters.IEnumerableOfTConverter`2[[System.Collections.Generic.IEnumerable`1[[Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod,Swashbuckle.AspNetCore.SwaggerUI]],System.Private.CoreLib],[Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Converters.EnumConverter`1[[Swashbuckle.AspNetCore.SwaggerUI.SubmitMethod,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Converters.EnumConverter`1[[Swashbuckle.AspNetCore.SwaggerUI.UrlDescriptor,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Converters.EnumConverter`1[[Swashbuckle.AspNetCore.SwaggerUI.ModelRendering,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Converters.EnumConverter`1[[Swashbuckle.AspNetCore.SwaggerUI.DocExpansion,Swashbuckle.AspNetCore.SwaggerUI]]" Dynamic="Required All" />
+
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Nullable`1[[System.Object,System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Object,System.Private.CoreLib]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Converters.NullableConverter`1[[System.Object,System.Private.CoreLib]]" Dynamic="Required All" />
+
+			<Type Name="System.Text.Json.Serialization.JsonConverter`1[[System.Threading.Tasks.Task`1[[System.Collections.Generic.IEnumerable`1[[AOTWebApi.WeatherForecast,AOTWebApi]],System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Threading.Tasks.Task`1[[System.Collections.Generic.IEnumerable`1[[AOTWebApi.WeatherForecast,AOTWebApi]],System.Private.CoreLib]],System.Private.CoreLib]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Collections.Generic.IEnumerable`1[[AOTWebApi.WeatherForecast,AOTWebApi]],System.Private.CoreLib]]" Dynamic="Required All" />
+			<!-- for serialization of WeatherForecast -->
+			<!--<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[System.Threading.Tasks.Task[System.Collections.Generic.IEnumerable`1[[AOTWebApi.WeatherForecast,AOTWebApi],System.Private.CoreLib],System.Private.CoreLib]]" Dynamic="Required All" />-->
+			<!--<Type Name="System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1[[AOTWebApi.WeatherForecast,AOTWebApi],[System.Int32,System.Private.CoreLib],[System.Int32,System.Private.CoreLib],[System.Int32,System.Private.CoreLib]]" Dynamic="Required All" />-->
+			<!-- for serialization of WeatherForecastWithNullable -->
+			<!--<Type Name="System.Text.Json.JsonPropertyInfoNotNullable`4[[AOTWebApi.WeatherForecastWithNullable,AOTWebApi],[System.DateTimeOffset,System.Private.CoreLib],[System.DateTimeOffset,System.Private.CoreLib],[System.DateTimeOffset,System.Private.CoreLib]]" Dynamic="Required All" />
+			<Type Name="System.Text.Json.JsonPropertyInfoNullable`2[[AOTWebApi.WeatherForecastWithNullable,AOTWebApi],[System.Int32,System.Private.CoreLib]]" Dynamic="Required All" />-->
+		</Assembly>
+		<!--Linq 反射 .Net 基类（元数据等类型）-->
+		<Assembly Name="System.Linq" Dynamic="Required All">
+			<Type Name="System.Linq.Enumerable" Dynamic="Required All">
+				<Method Name="ToArray" Dynamic="Required">
+					<GenericArgument Name="System.Object, System.Private.CoreLib" />
+				</Method>
+			</Type>
+		</Assembly>
+		<!--XML 反射 MakeGenericMethod-->
+		<Assembly Name="System.Private.Xml">
+			<!-- EETypeRva:0x01D8EE30(System.Reflection.MissingRuntimeArtifactException): MakeGenericMethod() cannot create this generic method instantiation because the instantiation was not metadata-enabled:
             'System.Xml.Serialization.ReflectionXmlSerializationReaderHelper.GetSetMemberValueDelegateWithType<myLibrary.NodeDateItem,System.DateTime>(System.Reflection.MemberInfo) -->
-      <Type Name="System.Xml.Serialization.ReflectionXmlSerializationReaderHelper">
-        <Method Name="GetSetMemberValueDelegateWithType" Dynamic="Required">
-          <GenericArgument Name="Quartz.Xml.JobSchedulingData20.cronTriggerType, Quartz" />
-          <GenericArgument Name="System.DateTime, System.Private.CoreLib" />
-        </Method>
-      </Type>
-      <!-- EETypeRva:0x013B9908(System.Reflection.MissingRuntimeArtifactException): MakeGenericMethod() cannot create this generic method instantiation because the instantiation was not metadata-enabled:
+			<Type Name="System.Xml.Serialization.ReflectionXmlSerializationReaderHelper">
+				<Method Name="GetSetMemberValueDelegateWithType" Dynamic="Required">
+					<GenericArgument Name="Quartz.Xml.JobSchedulingData20.cronTriggerType, Quartz" />
+					<GenericArgument Name="System.DateTime, System.Private.CoreLib" />
+				</Method>
+			</Type>
+			<!-- EETypeRva:0x013B9908(System.Reflection.MissingRuntimeArtifactException): MakeGenericMethod() cannot create this generic method instantiation because the instantiation was not metadata-enabled:
                  System.Xml.Serialization.ReflectionXmlSerializationReaderHelper.GetSetMemberValueDelegateWithType<myLibrary.NodeData,System.Nullable<System.Boolean>>(System.Reflection.MemberInfo) -->
-      <Type Name="System.Xml.Serialization.ReflectionXmlSerializationReaderHelper">
-        <Method Name="GetSetMemberValueDelegateWithType" Dynamic="Required">
-          <GenericArgument Name="Quartz.Xml.JobSchedulingData20.processingdirectivesType, Quartz" />
-          <GenericArgument Name="System.Boolean, System.Private.CoreLib" />
-          <!--<GenericArgument Name="System.Nullable`1[[System.Boolean, System.Private.CoreLib]], System.Private.CoreLib" />-->
-        </Method>
-      </Type>
-    </Assembly>
-  </Application>
+			<Type Name="System.Xml.Serialization.ReflectionXmlSerializationReaderHelper">
+				<Method Name="GetSetMemberValueDelegateWithType" Dynamic="Required">
+					<GenericArgument Name="Quartz.Xml.JobSchedulingData20.processingdirectivesType, Quartz" />
+					<GenericArgument Name="System.Boolean, System.Private.CoreLib" />
+					<!--<GenericArgument Name="System.Nullable`1[[System.Boolean, System.Private.CoreLib]], System.Private.CoreLib" />-->
+				</Method>
+			</Type>
+		</Assembly>
+	</Application>
 </Directives>
